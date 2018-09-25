@@ -8868,13 +8868,39 @@ var _user$project$Date2$newDate = function (date) {
 };
 var _user$project$Date2$d = _user$project$Date2$newDate(
 	{jour: 25, mois: _user$project$Mois$Septembre, annee: 2018});
+var _user$project$BibliDate$anneeMoins = function (date) {
+	var _p0 = date;
+	if (_p0.ctor === 'Just') {
+		var _p1 = _p0._0;
+		var annee0 = _user$project$Date2$dateVersAlias(_p1).annee;
+		var mois0 = _user$project$Date2$dateVersAlias(_p1).mois;
+		var jour0 = _user$project$Date2$dateVersAlias(_p1).jour;
+		return _user$project$Date2$newDate(
+			{jour: jour0, mois: mois0, annee: annee0 - 1});
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
+var _user$project$BibliDate$anneePlus = function (date) {
+	var _p2 = date;
+	if (_p2.ctor === 'Just') {
+		var _p3 = _p2._0;
+		var annee0 = _user$project$Date2$dateVersAlias(_p3).annee;
+		var mois0 = _user$project$Date2$dateVersAlias(_p3).mois;
+		var jour0 = _user$project$Date2$dateVersAlias(_p3).jour;
+		return _user$project$Date2$newDate(
+			{jour: jour0, mois: mois0, annee: annee0 + 1});
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
 var _user$project$BibliDate$d = _user$project$Date2$newDate(
 	{jour: 28, mois: _user$project$Mois$Fevrier, annee: 2019});
 var _user$project$BibliDate$avancement = function (d) {
-	var _p0 = d;
-	if (_p0.ctor === 'Just') {
-		var _p1 = _p0._0;
-		var mois = _user$project$Date2$dateVersAlias(_p1).mois;
+	var _p4 = d;
+	if (_p4.ctor === 'Just') {
+		var _p5 = _p4._0;
+		var mois = _user$project$Date2$dateVersAlias(_p5).mois;
 		var numMois = _user$project$Mois$listeInfoMois(mois).numeroDuMois;
 		var z = A2(
 			_elm_lang$core$List$map,
@@ -8883,21 +8909,21 @@ var _user$project$BibliDate$avancement = function (d) {
 					A2(_user$project$Mois$complete, y, _user$project$Mois$correspondances)).nombreDeJours;
 			},
 			A2(_elm_lang$core$List$range, 1, numMois - 1));
-		var annee = _user$project$Date2$dateVersAlias(_p1).annee;
-		return _elm_lang$core$List$sum(z) + _user$project$Date2$dateVersAlias(_p1).jour;
+		var annee = _user$project$Date2$dateVersAlias(_p5).annee;
+		return _elm_lang$core$List$sum(z) + _user$project$Date2$dateVersAlias(_p5).jour;
 	} else {
 		return 0;
 	}
 };
 var _user$project$BibliDate$ecartD1D2 = F2(
 	function (date1, date2) {
-		var _p2 = {ctor: '_Tuple2', _0: date1, _1: date2};
-		if ((_p2._0.ctor === 'Just') && (_p2._1.ctor === 'Just')) {
+		var _p6 = {ctor: '_Tuple2', _0: date1, _1: date2};
+		if ((_p6._0.ctor === 'Just') && (_p6._1.ctor === 'Just')) {
 			var d3 = _user$project$Date2$newDate(
 				{
 					jour: 31,
 					mois: _user$project$Mois$Decembre,
-					annee: _user$project$Date2$dateVersAlias(_p2._0._0).annee
+					annee: _user$project$Date2$dateVersAlias(_p6._0._0).annee
 				});
 			return (_user$project$BibliDate$avancement(d3) - _user$project$BibliDate$avancement(date1)) + _user$project$BibliDate$avancement(date2);
 		} else {
@@ -8907,19 +8933,19 @@ var _user$project$BibliDate$ecartD1D2 = F2(
 var _user$project$BibliDate$compD1D2Correct = function (l) {
 	compD1D2Correct:
 	while (true) {
-		var _p3 = l;
-		if (_p3.ctor === '::') {
-			var _p5 = _p3._1;
-			var _p4 = _p3._0;
-			if (_p4.ctor === 'Just') {
+		var _p7 = l;
+		if (_p7.ctor === '::') {
+			var _p9 = _p7._1;
+			var _p8 = _p7._0;
+			if (_p8.ctor === 'Just') {
 				return {
 					ctor: '::',
-					_0: _p4._0,
-					_1: _user$project$BibliDate$compD1D2Correct(_p5)
+					_0: _p8._0,
+					_1: _user$project$BibliDate$compD1D2Correct(_p9)
 				};
 			} else {
-				var _v4 = _p5;
-				l = _v4;
+				var _v6 = _p9;
+				l = _v6;
 				continue compD1D2Correct;
 			}
 		} else {
@@ -8930,14 +8956,14 @@ var _user$project$BibliDate$compD1D2Correct = function (l) {
 var _user$project$BibliDate$date3 = _user$project$Date2$newDate(
 	{jour: 11, mois: _user$project$Mois$Septembre, annee: 2018});
 var _user$project$BibliDate$jourDeLaSemaine = function (date) {
-	var _p6 = date;
-	if (_p6.ctor === 'Just') {
-		var _p7 = _p6._0;
-		var y = _user$project$Date2$dateVersAlias(_p7).annee;
+	var _p10 = date;
+	if (_p10.ctor === 'Just') {
+		var _p11 = _p10._0;
+		var y = _user$project$Date2$dateVersAlias(_p11).annee;
 		var z = y - 1;
-		var mois = _user$project$Date2$dateVersAlias(_p7).mois;
+		var mois = _user$project$Date2$dateVersAlias(_p11).mois;
 		var m = _user$project$Mois$listeInfoMois(mois).numeroDuMois;
-		var d = _user$project$Date2$dateVersAlias(_p7).jour;
+		var d = _user$project$Date2$dateVersAlias(_p11).jour;
 		return (_elm_lang$core$Native_Utils.cmp(m, 3) > -1) ? A2(_elm_lang$core$Basics_ops['%'], (((((((((23 * m) / 9) | 0) + d) + 4) + y) + ((y / 4) | 0)) - ((y / 100) | 0)) + ((y / 400) | 0)) - 2, 7) : A2(_elm_lang$core$Basics_ops['%'], ((((((((23 * m) / 9) | 0) + d) + 4) + y) + ((z / 4) | 0)) - ((z / 100) | 0)) + ((z / 400) | 0), 7);
 	} else {
 		return -1;
@@ -8953,29 +8979,29 @@ var _user$project$BibliDate$mois1AvantMois2 = F2(
 	});
 var _user$project$BibliDate$compD1D2 = F2(
 	function (date1, date2) {
-		var _p8 = {ctor: '_Tuple2', _0: date1, _1: date2};
-		if ((_p8._0.ctor === 'Just') && (_p8._1.ctor === 'Just')) {
-			var _p11 = _p8._1._0;
-			var _p10 = _p8._0._0;
+		var _p12 = {ctor: '_Tuple2', _0: date1, _1: date2};
+		if ((_p12._0.ctor === 'Just') && (_p12._1.ctor === 'Just')) {
+			var _p15 = _p12._1._0;
+			var _p14 = _p12._0._0;
 			if (_elm_lang$core$Native_Utils.cmp(
-				_user$project$Date2$dateVersAlias(_p10).annee,
-				_user$project$Date2$dateVersAlias(_p11).annee) > 0) {
+				_user$project$Date2$dateVersAlias(_p14).annee,
+				_user$project$Date2$dateVersAlias(_p15).annee) > 0) {
 				return _elm_lang$core$Maybe$Just(_elm_lang$core$Basics$GT);
 			} else {
 				if (_elm_lang$core$Native_Utils.cmp(
-					_user$project$Date2$dateVersAlias(_p10).annee,
-					_user$project$Date2$dateVersAlias(_p11).annee) < 0) {
+					_user$project$Date2$dateVersAlias(_p14).annee,
+					_user$project$Date2$dateVersAlias(_p15).annee) < 0) {
 					return _elm_lang$core$Maybe$Just(_elm_lang$core$Basics$LT);
 				} else {
 					if (A2(
 						_user$project$BibliDate$mois1AvantMois2,
-						_user$project$Date2$dateVersAlias(_p10).mois,
-						_user$project$Date2$dateVersAlias(_p11).mois)) {
-						var _p9 = A2(
+						_user$project$Date2$dateVersAlias(_p14).mois,
+						_user$project$Date2$dateVersAlias(_p15).mois)) {
+						var _p13 = A2(
 							_elm_lang$core$Basics$compare,
-							_user$project$Date2$dateVersAlias(_p10).jour,
-							_user$project$Date2$dateVersAlias(_p11).jour);
-						switch (_p9.ctor) {
+							_user$project$Date2$dateVersAlias(_p14).jour,
+							_user$project$Date2$dateVersAlias(_p15).jour);
+						switch (_p13.ctor) {
 							case 'LT':
 								return _elm_lang$core$Maybe$Just(_elm_lang$core$Basics$LT);
 							case 'EQ':
@@ -8995,9 +9021,9 @@ var _user$project$BibliDate$compD1D2 = F2(
 var _user$project$BibliDate$supOuEgal = F2(
 	function (d1, d2) {
 		var comp = A2(_user$project$BibliDate$compD1D2, d1, d2);
-		var _p12 = comp;
-		if (_p12.ctor === 'Just') {
-			switch (_p12._0.ctor) {
+		var _p16 = comp;
+		if (_p16.ctor === 'Just') {
+			switch (_p16._0.ctor) {
 				case 'LT':
 					return _elm_lang$core$Result$Ok(false);
 				case 'EQ':
@@ -9012,9 +9038,9 @@ var _user$project$BibliDate$supOuEgal = F2(
 var _user$project$BibliDate$inf = F2(
 	function (d1, d2) {
 		var supE = A2(_user$project$BibliDate$supOuEgal, d1, d2);
-		var _p13 = supE;
-		if (_p13.ctor === 'Ok') {
-			return _elm_lang$core$Result$Ok(!_p13._0);
+		var _p17 = supE;
+		if (_p17.ctor === 'Ok') {
+			return _elm_lang$core$Result$Ok(!_p17._0);
 		} else {
 			return _elm_lang$core$Result$Err('format date incorrect');
 		}
@@ -9022,9 +9048,9 @@ var _user$project$BibliDate$inf = F2(
 var _user$project$BibliDate$egal = F2(
 	function (d1, d2) {
 		var comp = A2(_user$project$BibliDate$compD1D2, d1, d2);
-		var _p14 = comp;
-		if (_p14.ctor === 'Just') {
-			switch (_p14._0.ctor) {
+		var _p18 = comp;
+		if (_p18.ctor === 'Just') {
+			switch (_p18._0.ctor) {
 				case 'LT':
 					return _elm_lang$core$Result$Ok(false);
 				case 'EQ':
@@ -9040,9 +9066,9 @@ var _user$project$BibliDate$infOuEgal = F2(
 	function (d1, d2) {
 		var eg = A2(_user$project$BibliDate$egal, d1, d2);
 		var inferieur = A2(_user$project$BibliDate$inf, d1, d2);
-		var _p15 = {ctor: '_Tuple2', _0: inferieur, _1: eg};
-		if ((_p15._0.ctor === 'Ok') && (_p15._1.ctor === 'Ok')) {
-			return _elm_lang$core$Result$Ok(_p15._0._0 || _p15._1._0);
+		var _p19 = {ctor: '_Tuple2', _0: inferieur, _1: eg};
+		if ((_p19._0.ctor === 'Ok') && (_p19._1.ctor === 'Ok')) {
+			return _elm_lang$core$Result$Ok(_p19._0._0 || _p19._1._0);
 		} else {
 			return _elm_lang$core$Result$Err('format date incorrect');
 		}
@@ -9052,9 +9078,9 @@ var _user$project$BibliDate$sup = F2(
 		var eg = A2(_user$project$BibliDate$egal, d1, d2);
 		var infE = A2(_user$project$BibliDate$infOuEgal, d1, d2);
 		var supE = A2(_user$project$BibliDate$supOuEgal, d1, d2);
-		var _p16 = {ctor: '_Tuple3', _0: supE, _1: infE, _2: eg};
-		if (((_p16._0.ctor === 'Ok') && (_p16._1.ctor === 'Ok')) && (_p16._2.ctor === 'Ok')) {
-			return _elm_lang$core$Result$Ok(_p16._0._0 && (!_p16._2._0));
+		var _p20 = {ctor: '_Tuple3', _0: supE, _1: infE, _2: eg};
+		if (((_p20._0.ctor === 'Ok') && (_p20._1.ctor === 'Ok')) && (_p20._2.ctor === 'Ok')) {
+			return _elm_lang$core$Result$Ok(_p20._0._0 && (!_p20._2._0));
 		} else {
 			return _elm_lang$core$Result$Err('format date incorrect');
 		}
@@ -9069,6 +9095,32 @@ var _user$project$BibliDate_ops = _user$project$BibliDate_ops || {};
 _user$project$BibliDate_ops['<>=>'] = _user$project$BibliDate$supOuEgal;
 var _user$project$BibliDate_ops = _user$project$BibliDate_ops || {};
 _user$project$BibliDate_ops['<<=>'] = _user$project$BibliDate$infOuEgal;
+var _user$project$BibliDate$moisSuivant = function (mois) {
+	return A2(
+		_user$project$Mois$complete,
+		_user$project$Mois$listeInfoMois(mois).numeroDuMois + 1,
+		_user$project$Mois$correspondances);
+};
+var _user$project$BibliDate$moisPlus = function (date) {
+	var _p21 = date;
+	if (_p21.ctor === 'Just') {
+		var _p22 = _p21._0;
+		var annee0 = _user$project$Date2$dateVersAlias(_p22).annee;
+		var mois0 = _user$project$Date2$dateVersAlias(_p22).mois;
+		var jour0 = _user$project$Date2$dateVersAlias(_p22).jour;
+		return _elm_lang$core$Native_Utils.eq(
+			mois0,
+			_user$project$Mois$listeInfoMois(_user$project$Mois$Decembre).mois) ? _user$project$Date2$newDate(
+			{jour: jour0, mois: _user$project$Mois$Janvier, annee: annee0 + 1}) : _user$project$Date2$newDate(
+			{
+				jour: jour0,
+				mois: _user$project$BibliDate$moisSuivant(mois0),
+				annee: annee0
+			});
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
 var _user$project$BibliDate$moisPrecedent = function (mois) {
 	return A2(
 		_user$project$Mois$complete,
@@ -9076,12 +9128,12 @@ var _user$project$BibliDate$moisPrecedent = function (mois) {
 		_user$project$Mois$correspondances);
 };
 var _user$project$BibliDate$jourPrecedent = function (date) {
-	var _p17 = date;
-	if (_p17.ctor === 'Just') {
-		var _p18 = _p17._0;
-		var annee0 = _user$project$Date2$dateVersAlias(_p18).annee;
-		var mois0 = _user$project$Date2$dateVersAlias(_p18).mois;
-		var jour0 = _user$project$Date2$dateVersAlias(_p18).jour;
+	var _p23 = date;
+	if (_p23.ctor === 'Just') {
+		var _p24 = _p23._0;
+		var annee0 = _user$project$Date2$dateVersAlias(_p24).annee;
+		var mois0 = _user$project$Date2$dateVersAlias(_p24).mois;
+		var jour0 = _user$project$Date2$dateVersAlias(_p24).jour;
 		return (_elm_lang$core$Native_Utils.eq(jour0, 1) && _elm_lang$core$Native_Utils.eq(
 			mois0,
 			_user$project$Mois$listeInfoMois(_user$project$Mois$Janvier).mois)) ? _user$project$Date2$newDate(
@@ -9098,13 +9150,33 @@ var _user$project$BibliDate$jourPrecedent = function (date) {
 		return _elm_lang$core$Maybe$Nothing;
 	}
 };
+var _user$project$BibliDate$moisMoins = function (date) {
+	var _p25 = date;
+	if (_p25.ctor === 'Just') {
+		var _p26 = _p25._0;
+		var annee0 = _user$project$Date2$dateVersAlias(_p26).annee;
+		var mois0 = _user$project$Date2$dateVersAlias(_p26).mois;
+		var jour0 = _user$project$Date2$dateVersAlias(_p26).jour;
+		return _elm_lang$core$Native_Utils.eq(
+			mois0,
+			_user$project$Mois$listeInfoMois(_user$project$Mois$Janvier).mois) ? _user$project$Date2$newDate(
+			{jour: jour0, mois: _user$project$Mois$Decembre, annee: annee0 - 1}) : _user$project$Date2$newDate(
+			{
+				jour: jour0,
+				mois: _user$project$BibliDate$moisPrecedent(mois0),
+				annee: annee0
+			});
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
 var _user$project$BibliDate$jourSuivant = function (date) {
-	var _p19 = date;
-	if (_p19.ctor === 'Just') {
-		var _p20 = _p19._0;
-		var annee0 = _user$project$Date2$dateVersAlias(_p20).annee;
-		var mois0 = _user$project$Date2$dateVersAlias(_p20).mois;
-		var jour0 = _user$project$Date2$dateVersAlias(_p20).jour;
+	var _p27 = date;
+	if (_p27.ctor === 'Just') {
+		var _p28 = _p27._0;
+		var annee0 = _user$project$Date2$dateVersAlias(_p28).annee;
+		var mois0 = _user$project$Date2$dateVersAlias(_p28).mois;
+		var jour0 = _user$project$Date2$dateVersAlias(_p28).jour;
 		return (_elm_lang$core$Native_Utils.eq(jour0, 31) && _elm_lang$core$Native_Utils.eq(
 			mois0,
 			_user$project$Mois$listeInfoMois(_user$project$Mois$Decembre).mois)) ? _user$project$Date2$newDate(
@@ -9114,9 +9186,9 @@ var _user$project$BibliDate$jourSuivant = function (date) {
 			{jour: 29, mois: _user$project$Mois$Fevrier, annee: annee0}) : ((_elm_lang$core$Native_Utils.cmp(
 			jour0,
 			_user$project$Mois$listeInfoMois(
-				_user$project$Date2$dateVersAlias(_p20).mois).nombreDeJours) < 0) ? _user$project$Date2$newDate(
+				_user$project$Date2$dateVersAlias(_p28).mois).nombreDeJours) < 0) ? _user$project$Date2$newDate(
 			{
-				jour: _user$project$Date2$dateVersAlias(_p20).jour + 1,
+				jour: _user$project$Date2$dateVersAlias(_p28).jour + 1,
 				mois: mois0,
 				annee: annee0
 			}) : _user$project$Date2$newDate(
@@ -9140,10 +9212,10 @@ var _user$project$BibliDate$niemeJourAvant = F2(
 				return date;
 			} else {
 				if (_elm_lang$core$Native_Utils.cmp(n, 0) > 0) {
-					var _v15 = _user$project$BibliDate$jourPrecedent(date),
-						_v16 = n - 1;
-					date = _v15;
-					n = _v16;
+					var _v19 = _user$project$BibliDate$jourPrecedent(date),
+						_v20 = n - 1;
+					date = _v19;
+					n = _v20;
 					continue niemeJourAvant;
 				} else {
 					return A2(
@@ -9162,10 +9234,10 @@ var _user$project$BibliDate$niemeJourApres = F2(
 				return date;
 			} else {
 				if (_elm_lang$core$Native_Utils.cmp(n, 0) > 0) {
-					var _v17 = _user$project$BibliDate$jourSuivant(date),
-						_v18 = n - 1;
-					date = _v17;
-					n = _v18;
+					var _v21 = _user$project$BibliDate$jourSuivant(date),
+						_v22 = n - 1;
+					date = _v21;
+					n = _v22;
 					continue niemeJourApres;
 				} else {
 					return A2(
@@ -9197,19 +9269,19 @@ var _user$project$BibliDate$numeroEnJour = function (i) {
 var _user$project$BibliDate$j = _user$project$BibliDate$numeroEnJour(
 	_user$project$BibliDate$jourDeLaSemaine(_user$project$BibliDate$date3));
 var _user$project$BibliDate$aff = function (date) {
-	var _p21 = date;
-	if (_p21.ctor === 'Just') {
-		var _p22 = _p21._0;
-		var y = _user$project$Date2$dateVersAlias(_p22).annee;
-		var mois = _user$project$Date2$dateVersAlias(_p22).mois;
+	var _p29 = date;
+	if (_p29.ctor === 'Just') {
+		var _p30 = _p29._0;
+		var y = _user$project$Date2$dateVersAlias(_p30).annee;
+		var mois = _user$project$Date2$dateVersAlias(_p30).mois;
 		var m = _user$project$Mois$listeInfoMois(mois).numeroDuMois;
-		var d = _user$project$Date2$dateVersAlias(_p22).jour;
+		var d = _user$project$Date2$dateVersAlias(_p30).jour;
 		return A2(
 			_elm_lang$core$Basics_ops['++'],
 			_elm_lang$core$Basics$toString(
 				_user$project$BibliDate$numeroEnJour(
 					_user$project$BibliDate$jourDeLaSemaine(
-						_elm_lang$core$Maybe$Just(_p22)))),
+						_elm_lang$core$Maybe$Just(_p30)))),
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				' / ',
@@ -9283,63 +9355,122 @@ var _user$project$DateDemo$stringVersMois = function (mois) {
 		return _elm_lang$core$Result$Err('');
 	}
 };
-var _user$project$DateDemo$Model = F5(
-	function (a, b, c, d, e) {
-		return {jour: a, mois: b, annee: c, p: d, m: e};
-	});
-var _user$project$DateDemo$init = A5(_user$project$DateDemo$Model, 0, _user$project$Mois$Faux, 0, 0, 0);
+var _user$project$DateDemo$init = {
+	date: _user$project$Date2$newDate(
+		{jour: 1, mois: _user$project$Mois$Janvier, annee: 2000})
+};
 var _user$project$DateDemo$update = F2(
-	function (msg, _p3) {
-		var _p4 = _p3;
-		var _p10 = _p4.p;
-		var _p9 = _p4.mois;
-		var _p8 = _p4.m;
-		var _p7 = _p4.jour;
-		var _p6 = _p4.annee;
-		var _p5 = msg;
-		_v7_5:
+	function (msg, model) {
+		var _p3 = msg;
+		_v6_9:
 		do {
-			switch (_p5.ctor) {
+			switch (_p3.ctor) {
+				case 'PlusJour':
+					return {
+						date: _user$project$BibliDate$jourSuivant(model.date)
+					};
+				case 'MoinsJour':
+					return {
+						date: _user$project$BibliDate$jourPrecedent(model.date)
+					};
+				case 'PlusMois':
+					return {
+						date: _user$project$BibliDate$moisPlus(model.date)
+					};
+				case 'MoinsMois':
+					return {
+						date: _user$project$BibliDate$moisMoins(model.date)
+					};
+				case 'PlusAnnee':
+					return {
+						date: _user$project$BibliDate$anneePlus(model.date)
+					};
+				case 'MoinsAnnee':
+					return {
+						date: _user$project$BibliDate$anneeMoins(model.date)
+					};
 				case 'Jour':
-					if (_p5._0.ctor === 'Ok') {
-						return A5(_user$project$DateDemo$Model, _p5._0._0, _p9, _p6, 0, 0);
+					if (_p3._0.ctor === 'Ok') {
+						var _p4 = model.date;
+						if (_p4.ctor === 'Just') {
+							var _p5 = _p4._0;
+							return {
+								date: _user$project$Date2$newDate(
+									{
+										jour: _p3._0._0,
+										mois: _user$project$Date2$dateVersAlias(_p5).mois,
+										annee: _user$project$Date2$dateVersAlias(_p5).annee
+									})
+							};
+						} else {
+							return model;
+						}
 					} else {
-						break _v7_5;
+						break _v6_9;
 					}
 				case 'Mois':
-					if (_p5._0.ctor === 'Ok') {
-						return A5(_user$project$DateDemo$Model, _p7, _p5._0._0, _p6, 0, 0);
+					if (_p3._0.ctor === 'Ok') {
+						var _p6 = model.date;
+						if (_p6.ctor === 'Just') {
+							var _p7 = _p6._0;
+							return {
+								date: _user$project$Date2$newDate(
+									{
+										jour: _user$project$Date2$dateVersAlias(_p7).jour,
+										mois: _p3._0._0,
+										annee: _user$project$Date2$dateVersAlias(_p7).annee
+									})
+							};
+						} else {
+							return model;
+						}
 					} else {
-						break _v7_5;
-					}
-				case 'Annee':
-					if (_p5._0.ctor === 'Ok') {
-						return A5(_user$project$DateDemo$Model, _p7, _p9, _p5._0._0, 0, 0);
-					} else {
-						break _v7_5;
-					}
-				case 'Plus':
-					if (_p5._0.ctor === 'Ok') {
-						return A5(_user$project$DateDemo$Model, _p7, _p9, _p6, _p5._0._0, _p8);
-					} else {
-						break _v7_5;
+						break _v6_9;
 					}
 				default:
-					if (_p5._0.ctor === 'Ok') {
-						return A5(_user$project$DateDemo$Model, _p7, _p9, _p6, _p10, _p5._0._0);
+					if (_p3._0.ctor === 'Ok') {
+						var _p8 = model.date;
+						if (_p8.ctor === 'Just') {
+							var _p9 = _p8._0;
+							return {
+								date: _user$project$Date2$newDate(
+									{
+										jour: _user$project$Date2$dateVersAlias(_p9).jour,
+										mois: _user$project$Date2$dateVersAlias(_p9).mois,
+										annee: _p3._0._0
+									})
+							};
+						} else {
+							return model;
+						}
 					} else {
-						break _v7_5;
+						break _v6_9;
 					}
 			}
 		} while(false);
-		return A5(_user$project$DateDemo$Model, _p7, _p9, _p6, _p10, _p8);
+		var d = model.date;
+		var _p10 = d;
+		if (_p10.ctor === 'Just') {
+			var _p11 = _p10._0;
+			return {
+				date: _user$project$Date2$newDate(
+					{
+						jour: _user$project$Date2$dateVersAlias(_p11).jour,
+						mois: _user$project$Date2$dateVersAlias(_p11).mois,
+						annee: _user$project$Date2$dateVersAlias(_p11).annee
+					})
+			};
+		} else {
+			return _user$project$DateDemo$init;
+		}
 	});
-var _user$project$DateDemo$Moins = function (a) {
-	return {ctor: 'Moins', _0: a};
+var _user$project$DateDemo$Model = function (a) {
+	return {date: a};
 };
-var _user$project$DateDemo$Plus = function (a) {
-	return {ctor: 'Plus', _0: a};
-};
+var _user$project$DateDemo$DateSaisie = F3(
+	function (a, b, c) {
+		return {jourS: a, moisS: b, anneeS: c};
+	});
 var _user$project$DateDemo$Annee = function (a) {
 	return {ctor: 'Annee', _0: a};
 };
@@ -9349,25 +9480,17 @@ var _user$project$DateDemo$Mois = function (a) {
 var _user$project$DateDemo$Jour = function (a) {
 	return {ctor: 'Jour', _0: a};
 };
+var _user$project$DateDemo$MoinsAnnee = {ctor: 'MoinsAnnee'};
+var _user$project$DateDemo$PlusAnnee = {ctor: 'PlusAnnee'};
+var _user$project$DateDemo$MoinsMois = {ctor: 'MoinsMois'};
+var _user$project$DateDemo$PlusMois = {ctor: 'PlusMois'};
+var _user$project$DateDemo$MoinsJour = {ctor: 'MoinsJour'};
+var _user$project$DateDemo$PlusJour = {ctor: 'PlusJour'};
 var _user$project$DateDemo$view = function (model) {
-	var date = _user$project$Date2$newDate(
-		{jour: model.jour, mois: model.mois, annee: model.annee});
+	var date = model.date;
 	return A2(
 		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'height', _1: '400px'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'width', _1: '800px'},
-						_1: {ctor: '[]'}
-					}
-				}),
-			_1: {ctor: '[]'}
-		},
+		{ctor: '[]'},
 		{
 			ctor: '::',
 			_0: A2(
@@ -9381,9 +9504,9 @@ var _user$project$DateDemo$view = function (model) {
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$html$Html_Events$onInput(
-								function (_p11) {
+								function (_p12) {
 									return _user$project$DateDemo$Jour(
-										_elm_lang$core$String$toInt(_p11));
+										_elm_lang$core$String$toInt(_p12));
 								}),
 							_1: {ctor: '[]'}
 						}
@@ -9403,9 +9526,9 @@ var _user$project$DateDemo$view = function (model) {
 							_1: {
 								ctor: '::',
 								_0: _elm_lang$html$Html_Events$onInput(
-									function (_p12) {
+									function (_p13) {
 										return _user$project$DateDemo$Mois(
-											_user$project$DateDemo$stringVersMois(_p12));
+											_user$project$DateDemo$stringVersMois(_p13));
 									}),
 								_1: {ctor: '[]'}
 							}
@@ -9425,9 +9548,9 @@ var _user$project$DateDemo$view = function (model) {
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$html$Html_Events$onInput(
-										function (_p13) {
+										function (_p14) {
 											return _user$project$DateDemo$Annee(
-												_elm_lang$core$String$toInt(_p13));
+												_elm_lang$core$String$toInt(_p14));
 										}),
 									_1: {ctor: '[]'}
 								}
@@ -9453,64 +9576,96 @@ var _user$project$DateDemo$view = function (model) {
 								_1: {
 									ctor: '::',
 									_0: A2(
-										_elm_lang$html$Html$input,
+										_elm_lang$html$Html$button,
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$type_('String'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$placeholder(' plus '),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Events$onInput(
-														function (_p14) {
-															return _user$project$DateDemo$Plus(
-																_elm_lang$core$String$toInt(_p14));
-														}),
-													_1: {ctor: '[]'}
-												}
-											}
+											_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo$PlusJour),
+											_1: {ctor: '[]'}
 										},
-										{ctor: '[]'}),
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('+Jour'),
+											_1: {ctor: '[]'}
+										}),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$html$Html$text(
-											_user$project$BibliDate$aff(
-												A2(_user$project$BibliDate_ops['<+>'], date, model.p))),
+										_0: A2(
+											_elm_lang$html$Html$button,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo$PlusMois),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('+Mois'),
+												_1: {ctor: '[]'}
+											}),
 										_1: {
 											ctor: '::',
 											_0: A2(
-												_elm_lang$html$Html$br,
-												{ctor: '[]'},
-												{ctor: '[]'}),
+												_elm_lang$html$Html$button,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo$PlusAnnee),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('+Annee'),
+													_1: {ctor: '[]'}
+												}),
 											_1: {
 												ctor: '::',
 												_0: A2(
-													_elm_lang$html$Html$input,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$type_('String'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$placeholder(' moins '),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Events$onInput(
-																	function (_p15) {
-																		return _user$project$DateDemo$Moins(
-																			_elm_lang$core$String$toInt(_p15));
-																	}),
-																_1: {ctor: '[]'}
-															}
-														}
-													},
+													_elm_lang$html$Html$br,
+													{ctor: '[]'},
 													{ctor: '[]'}),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html$text(
-														_user$project$BibliDate$aff(
-															A2(_user$project$BibliDate_ops['<->'], date, model.m))),
-													_1: {ctor: '[]'}
+													_0: A2(
+														_elm_lang$html$Html$button,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo$MoinsJour),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('-Jour'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$button,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo$MoinsMois),
+																_1: {ctor: '[]'}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('-Mois'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$button,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo$MoinsAnnee),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('-Annee'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {ctor: '[]'}
+														}
+													}
 												}
 											}
 										}
