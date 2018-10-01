@@ -9648,6 +9648,17 @@ var _user$project$DateDemo3$listeJours = {
 		}
 	}
 };
+var _user$project$DateDemo3$redirige = function (d) {
+	var _p3 = A2(
+		_user$project$BibliDate_ops['<==>'],
+		d,
+		_user$project$BibliDate$meetupElm(d));
+	if (_p3.ctor === 'Ok') {
+		return _p3._0 ? 'https://www.meetup.com/Meetup-Elm-Paris/events/?_locale=fr-FR' : '';
+	} else {
+		return '';
+	}
+};
 var _user$project$DateDemo3$estDansMoisAvant = F2(
 	function (x, model) {
 		return (A2(
@@ -9671,9 +9682,9 @@ var _user$project$DateDemo3$estDansMoisAvant = F2(
 var _user$project$DateDemo3$afficheMeetup = F3(
 	function (s1, s2, model) {
 		var eg = A2(_user$project$BibliDate_ops['<==>'], s1, s2);
-		var _p3 = eg;
-		if (_p3.ctor === 'Ok') {
-			return _p3._0 ? _elm_lang$html$Html_Attributes$style(
+		var _p4 = eg;
+		if (_p4.ctor === 'Ok') {
+			return _p4._0 ? _elm_lang$html$Html_Attributes$style(
 				{
 					ctor: '::',
 					_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'red'},
@@ -9690,15 +9701,53 @@ var _user$project$DateDemo3$afficheMeetup = F3(
 	});
 var _user$project$DateDemo3$cond = F2(
 	function (model, elt) {
-		return {
-			ctor: '::',
-			_0: A3(
-				_user$project$DateDemo3$afficheMeetup,
-				elt,
-				_user$project$BibliDate$meetupElm(model.date),
-				model.date),
-			_1: {ctor: '[]'}
-		};
+		return A3(
+			_user$project$DateDemo3$afficheMeetup,
+			elt,
+			_user$project$BibliDate$meetupElm(model.date),
+			model.date);
+	});
+var _user$project$DateDemo3$afficher = F2(
+	function (date, model) {
+		return (!_elm_lang$core$Native_Utils.eq(
+			_user$project$DateDemo3$redirige(date),
+			'')) ? A2(
+			_elm_lang$html$Html$td,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$a,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$href(
+							_user$project$DateDemo3$redirige(date)),
+						_1: {
+							ctor: '::',
+							_0: A2(_user$project$DateDemo3$cond, model, date),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_user$project$BibliDate$aff2(date)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}) : A2(
+			_elm_lang$html$Html$td,
+			{
+				ctor: '::',
+				_0: A2(_user$project$DateDemo3$cond, model, date),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					_user$project$BibliDate$aff2(date)),
+				_1: {ctor: '[]'}
+			});
 	});
 var _user$project$DateDemo3$afficheLeMois = function (model) {
 	var parcours = function (l) {
@@ -9707,7 +9756,16 @@ var _user$project$DateDemo3$afficheLeMois = function (model) {
 			function (arg) {
 				return A2(
 					_elm_lang$html$Html$td,
-					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					},
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html$text(arg),
@@ -9721,15 +9779,7 @@ var _user$project$DateDemo3$afficheLeMois = function (model) {
 				var colonnes = A2(
 					_elm_lang$core$List$map,
 					function (elt) {
-						return A2(
-							_elm_lang$html$Html$td,
-							A2(_user$project$DateDemo3$cond, model, elt),
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(
-									_user$project$BibliDate$aff2(elt)),
-								_1: {ctor: '[]'}
-							});
+						return A2(_user$project$DateDemo3$afficher, elt, model);
 					},
 					arg);
 				return A2(
@@ -9745,7 +9795,7 @@ var _user$project$DateDemo3$afficheLeMois = function (model) {
 				_0: _elm_lang$html$Html_Attributes$style(
 					{
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+						_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '5%'},
 						_1: {ctor: '[]'}
 					}),
 				_1: {ctor: '[]'}
@@ -9764,10 +9814,10 @@ var _user$project$DateDemo3$afficheLeMois = function (model) {
 };
 var _user$project$DateDemo3$update = F2(
 	function (msg, model) {
-		var _p4 = msg;
-		_v7_9:
+		var _p5 = msg;
+		_v8_9:
 		do {
-			switch (_p4.ctor) {
+			switch (_p5.ctor) {
 				case 'PlusJour':
 					return {
 						date: _user$project$BibliDate$jourSuivant(model.date)
@@ -9793,74 +9843,74 @@ var _user$project$DateDemo3$update = F2(
 						date: _user$project$BibliDate$anneeMoins(model.date)
 					};
 				case 'Jour':
-					if (_p4._0.ctor === 'Ok') {
-						var _p5 = model.date;
-						if (_p5.ctor === 'Just') {
-							var _p6 = _p5._0;
+					if (_p5._0.ctor === 'Ok') {
+						var _p6 = model.date;
+						if (_p6.ctor === 'Just') {
+							var _p7 = _p6._0;
 							return {
 								date: _user$project$Date2$newDate(
 									{
-										jour: _p4._0._0,
-										mois: _user$project$Date2$dateVersAlias(_p6).mois,
-										annee: _user$project$Date2$dateVersAlias(_p6).annee
+										jour: _p5._0._0,
+										mois: _user$project$Date2$dateVersAlias(_p7).mois,
+										annee: _user$project$Date2$dateVersAlias(_p7).annee
 									})
 							};
 						} else {
 							return model;
 						}
 					} else {
-						break _v7_9;
+						break _v8_9;
 					}
 				case 'Mois':
-					if (_p4._0.ctor === 'Ok') {
-						var _p7 = model.date;
-						if (_p7.ctor === 'Just') {
-							var _p8 = _p7._0;
+					if (_p5._0.ctor === 'Ok') {
+						var _p8 = model.date;
+						if (_p8.ctor === 'Just') {
+							var _p9 = _p8._0;
 							return {
 								date: _user$project$Date2$newDate(
 									{
-										jour: _user$project$Date2$dateVersAlias(_p8).jour,
-										mois: _p4._0._0,
-										annee: _user$project$Date2$dateVersAlias(_p8).annee
+										jour: _user$project$Date2$dateVersAlias(_p9).jour,
+										mois: _p5._0._0,
+										annee: _user$project$Date2$dateVersAlias(_p9).annee
 									})
 							};
 						} else {
 							return model;
 						}
 					} else {
-						break _v7_9;
+						break _v8_9;
 					}
 				default:
-					if (_p4._0.ctor === 'Ok') {
-						var _p9 = model.date;
-						if (_p9.ctor === 'Just') {
-							var _p10 = _p9._0;
+					if (_p5._0.ctor === 'Ok') {
+						var _p10 = model.date;
+						if (_p10.ctor === 'Just') {
+							var _p11 = _p10._0;
 							return {
 								date: _user$project$Date2$newDate(
 									{
-										jour: _user$project$Date2$dateVersAlias(_p10).jour,
-										mois: _user$project$Date2$dateVersAlias(_p10).mois,
-										annee: _p4._0._0
+										jour: _user$project$Date2$dateVersAlias(_p11).jour,
+										mois: _user$project$Date2$dateVersAlias(_p11).mois,
+										annee: _p5._0._0
 									})
 							};
 						} else {
 							return model;
 						}
 					} else {
-						break _v7_9;
+						break _v8_9;
 					}
 			}
 		} while(false);
 		var d = model.date;
-		var _p11 = d;
-		if (_p11.ctor === 'Just') {
-			var _p12 = _p11._0;
+		var _p12 = d;
+		if (_p12.ctor === 'Just') {
+			var _p13 = _p12._0;
 			return {
 				date: _user$project$Date2$newDate(
 					{
-						jour: _user$project$Date2$dateVersAlias(_p12).jour,
-						mois: _user$project$Date2$dateVersAlias(_p12).mois,
-						annee: _user$project$Date2$dateVersAlias(_p12).annee
+						jour: _user$project$Date2$dateVersAlias(_p13).jour,
+						mois: _user$project$Date2$dateVersAlias(_p13).mois,
+						annee: _user$project$Date2$dateVersAlias(_p13).annee
 					})
 			};
 		} else {
@@ -9893,82 +9943,116 @@ var _user$project$DateDemo3$MoinsMois = {ctor: 'MoinsMois'};
 var _user$project$DateDemo3$PlusMois = {ctor: 'PlusMois'};
 var _user$project$DateDemo3$view = function (model) {
 	var date = model.date;
-	var _p13 = date;
-	if (_p13.ctor === 'Just') {
-		var _p14 = _p13._0;
+	var _p14 = date;
+	if (_p14.ctor === 'Just') {
+		var _p15 = _p14._0;
 		return A2(
 			_elm_lang$html$Html$div,
 			{ctor: '[]'},
 			{
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$p,
+					_elm_lang$html$Html$table,
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html_Attributes$style(
 							{
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '25%'},
-								_1: {ctor: '[]'}
+								_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '5%'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+									_1: {ctor: '[]'}
+								}
 							}),
 						_1: {ctor: '[]'}
 					},
 					{
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$button,
+							_elm_lang$html$Html$tr,
+							{ctor: '[]'},
 							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo3$MoinsAnnee),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(' - '),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(
-								_elm_lang$core$Basics$toString(
-									_user$project$Date2$dateVersAlias(_p14).annee)),
-							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$button,
+									_elm_lang$html$Html$td,
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo3$PlusAnnee),
+										_0: _elm_lang$html$Html_Attributes$style(
+											{
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'padding-left', _1: '25%'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'width', _1: '80px'},
+													_1: {ctor: '[]'}
+												}
+											}),
 										_1: {ctor: '[]'}
 									},
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text(' + '),
+										_0: A2(
+											_elm_lang$html$Html$button,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo3$MoinsAnnee),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(' - '),
+												_1: {ctor: '[]'}
+											}),
 										_1: {ctor: '[]'}
 									}),
-								_1: {ctor: '[]'}
-							}
-						}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$table,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(
-								{
+								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '15%'},
+									_0: A2(
+										_elm_lang$html$Html$td,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(
+												_elm_lang$core$Basics$toString(
+													_user$project$Date2$dateVersAlias(_p15).annee)),
+											_1: {ctor: '[]'}
+										}),
 									_1: {
 										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+										_0: A2(
+											_elm_lang$html$Html$td,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$style(
+													{
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'width', _1: '80px'},
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$button,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo3$PlusAnnee),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(' + '),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}),
 										_1: {ctor: '[]'}
 									}
-								}),
-							_1: {ctor: '[]'}
-						},
-						{
+								}
+							}),
+						_1: {
 							ctor: '::',
 							_0: A2(
 								_elm_lang$html$Html$tr,
@@ -9977,7 +10061,7 @@ var _user$project$DateDemo3$view = function (model) {
 									_0: _elm_lang$html$Html_Attributes$style(
 										{
 											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'width', _1: '210px'},
+											_0: {ctor: '_Tuple2', _0: 'width', _1: '500px'},
 											_1: {ctor: '[]'}
 										}),
 									_1: {ctor: '[]'}
@@ -9986,35 +10070,35 @@ var _user$project$DateDemo3$view = function (model) {
 									ctor: '::',
 									_0: A2(
 										_elm_lang$html$Html$td,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$style(
-												{
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'width', _1: '70px'},
-													_1: {
-														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
-														_1: {ctor: '[]'}
-													}
-												}),
-											_1: {ctor: '[]'}
-										},
+										{ctor: '[]'},
 										{
 											ctor: '::',
 											_0: A2(
 												_elm_lang$html$Html$button,
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo3$MoinsMois),
-													_1: {ctor: '[]'}
+													_0: _elm_lang$html$Html_Attributes$style(
+														{
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'width', _1: '150px'},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'yellow'},
+																_1: {ctor: '[]'}
+															}
+														}),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo3$MoinsMois),
+														_1: {ctor: '[]'}
+													}
 												},
 												{
 													ctor: '::',
 													_0: _elm_lang$html$Html$text(
 														_elm_lang$core$Basics$toString(
 															_user$project$BibliDate$moisPrecedent(
-																_user$project$Date2$dateVersAlias(_p14).mois))),
+																_user$project$Date2$dateVersAlias(_p15).mois))),
 													_1: {ctor: '[]'}
 												}),
 											_1: {ctor: '[]'}
@@ -10028,12 +10112,8 @@ var _user$project$DateDemo3$view = function (model) {
 												_0: _elm_lang$html$Html_Attributes$style(
 													{
 														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'width', _1: '70px'},
-														_1: {
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
-															_1: {ctor: '[]'}
-														}
+														_0: {ctor: '_Tuple2', _0: 'width', _1: '80px'},
+														_1: {ctor: '[]'}
 													}),
 												_1: {ctor: '[]'}
 											},
@@ -10041,38 +10121,42 @@ var _user$project$DateDemo3$view = function (model) {
 												ctor: '::',
 												_0: _elm_lang$html$Html$text(
 													_elm_lang$core$Basics$toString(
-														_user$project$Date2$dateVersAlias(_p14).mois)),
+														_user$project$Date2$dateVersAlias(_p15).mois)),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
 											ctor: '::',
 											_0: A2(
 												_elm_lang$html$Html$td,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$style(
-														{
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'width', _1: '70px'},
-															_1: {ctor: '[]'}
-														}),
-													_1: {ctor: '[]'}
-												},
+												{ctor: '[]'},
 												{
 													ctor: '::',
 													_0: A2(
 														_elm_lang$html$Html$button,
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo3$PlusMois),
-															_1: {ctor: '[]'}
+															_0: _elm_lang$html$Html_Attributes$style(
+																{
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: 'width', _1: '150px'},
+																	_1: {
+																		ctor: '::',
+																		_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'yellow'},
+																		_1: {ctor: '[]'}
+																	}
+																}),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Events$onClick(_user$project$DateDemo3$PlusMois),
+																_1: {ctor: '[]'}
+															}
 														},
 														{
 															ctor: '::',
 															_0: _elm_lang$html$Html$text(
 																_elm_lang$core$Basics$toString(
 																	_user$project$BibliDate$moisSuivant(
-																		_user$project$Date2$dateVersAlias(_p14).mois))),
+																		_user$project$Date2$dateVersAlias(_p15).mois))),
 															_1: {ctor: '[]'}
 														}),
 													_1: {ctor: '[]'}
@@ -10082,28 +10166,12 @@ var _user$project$DateDemo3$view = function (model) {
 									}
 								}),
 							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$p,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$style(
-									{
-										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '5%'},
-										_1: {ctor: '[]'}
-									}),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _user$project$DateDemo3$afficheLeMois(model),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _user$project$DateDemo3$afficheLeMois(model),
+					_1: {ctor: '[]'}
 				}
 			});
 	} else {
