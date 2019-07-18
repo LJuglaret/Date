@@ -40,40 +40,52 @@ compD1D2 date1c date2c =
                     else Just GT
         (_,_) -> Nothing
 
-supOuEgal : Maybe Date2 -> Maybe Date2 -> Result String Bool  
-supOuEgal d1 d2 = 
+---
+
+
+sup : Maybe Date2 -> Maybe Date2 -> Result String Bool  
+sup d1 d2 = 
     let 
         comp = compD1D2 d1 d2
     in
         case comp of 
             Just LT -> Ok False
-            Just EQ -> Ok True 
+            Just EQ -> Ok False
             Just GT -> Ok True 
             Nothing -> Err "format date incorrect"
 
 
-egal : Maybe Date2 -> Maybe Date2 -> Result String Bool  
-egal d1 d2 = 
+inf : Maybe Date2 -> Maybe Date2 -> Result String Bool  
+inf d1 d2 = 
     let 
         comp = compD1D2 d1 d2
     in
         case comp of 
-            Just LT -> Ok False
-            Just EQ -> Ok True 
+            Just LT -> Ok True
+            Just EQ -> Ok False
             Just GT -> Ok False 
             Nothing -> Err "format date incorrect"
 
+egal : Maybe Date2 -> Maybe Date2 -> Result String Bool  
+egal d1 d2 = 
+    let 
+        inferieur = inf d1 d2
+        superieur = sup d1 d2
 
-
-inf : Maybe Date2 -> Maybe Date2 -> Result String Bool  
-inf d1 d2 = 
-    let
-        supE = supOuEgal d1 d2
     in
-        case supE of
-            Ok supEb -> Ok (not supEb )  
-            _            -> Err "format date incorrect" 
+        case (inferieur,superieur) of 
+            (Ok  inferieurb, Ok superieurb) -> Ok (not inferieurb && not superieurb)
+            (_,_) -> Err "format date incorrect"
 
+
+different : Maybe Date2 -> Maybe Date2 -> Result String Bool  
+different d1 d2 =
+    let 
+        eg = egal d1 d2
+    in
+        case eg  of 
+            Ok egb -> Ok (not egb)
+            _ -> Err "format date incorrect"
 
 infOuEgal : Maybe Date2 -> Maybe Date2 -> Result String Bool  
 infOuEgal d1 d2 =  
@@ -85,19 +97,15 @@ infOuEgal d1 d2 =
             (Ok inferieurb, Ok egb) -> Ok (inferieurb ||  egb)  
             (_ , _)            -> Err "format date incorrect" 
 
-sup : Maybe Date2 -> Maybe Date2 -> Result String Bool  
-sup d1 d2 = 
-    let
-        supE = supOuEgal d1 d2
-        infE = infOuEgal d1 d2
-        eg   = egal d1 d2
+supOuEgal : Maybe Date2 -> Maybe Date2 -> Result String Bool  
+supOuEgal d1 d2 =  
+    let  
+        superieur = sup d1 d2
+        eg        = egal d1 d2 
     in
-        case (supE, infE, eg) of
-            (Ok supEb, Ok infEb, Ok egb) -> Ok (supEb && not egb)  
-            (_ , _, _)            -> Err "format date incorrect" 
-
-
----
+        case (superieur, eg) of
+            (Ok superieurb, Ok egb) -> Ok (superieurb ||  egb)  
+            (_ , _)            -> Err "format date incorrect" 
 
 
 ---
