@@ -109,40 +109,82 @@ type Maybe a = Just a
  Utile dans notre cas puisque on veut tester une date mais aussi la récupérer, ce qui n est pas possible avec le type Bool
 
 ---
-### Autre Solution : les types opaques
-- newDate : le constructeur d un objet de type date.
+## Autre Solution, les *types opaques*
+
+Créer son propre type Date.
+On utilisera
+- newDate : le constructeur d un objet de type date à partir d un triplet DateAlias.
 - dateVersAlias : l operation reciproque.   A un objet de type Date elle renvoie un triplet DateAlias
+    - Utile pour récuperer les champs jour mois et année 
 ----
+
 ```elm
 
-module Date2 exposing ( newDate,Date2,DateAlias, dateVersAlias)
-import Mois exposing (..)
 type alias Annee = Int 
 type alias DateAlias  = {jour : Int ,  mois : Mois, annee: Annee}
 type Date2 = D DateAlias
+
+newDate : DateAlias -> Maybe Date2
+newDate date = 
+    (if cond)
+    then Just (D date)
+    else Nothing
 
 dateVersAlias : Date2 -> DateAlias  
 dateVersAlias (D da) = da
 ```
 
 ---
-Avantage
 
-Avec cette forme on a la garantie que pour toute date
-entree elle sera soit valide et sera traitee
+## Avantages
+
+- Avec cette forme on a la garantie que pour toute date
+entrée elle sera soit valide et sera traitée
 soit invalide et ne renverra rien
 
-Exemple
+## Autour des dates
+**Comparaison**   
+Comparer deux dates revient à déterminer si une date est
+avant ou après  une autre, pour éviter les répétitions on introduit un ordre sur le type Date.
 
-```elm
-date3 : Maybe Date
-date3 = newDate{jour = 11, mois = Septembre, annee = 2018}
-date4 : Maybe Date
-date4 = newDate{jour = 31 , mois = Septembre, annee = 2018}
+Rappel
+```elm 
+type Order = LT -- <
+            |GT -- >
+            |EQ --  =
+```
+Les 5 comparaisons nécessaires sont : 
+Strictement inferieur, inferieur ou égal, Strictement supérieur,supérieur ou égal, égal.
+
+Un moyen de procéder est de copier coller 4 fois en adaptant ce code :
+
+```elm 
+unDesOperateurs : Maybe Date2 -> Maybe Date2 -> Result String Bool  
+unDesOperateurs d1 d2 = 
+    let 
+        comp = compD1D2 d1 d2
+    in
+        case comp of 
+            Just LT -> Ok ...
+            Just EQ -> Ok ...
+            Just GT -> Ok ... 
+            Nothing -> Err "format date incorrect"
 ``` 
 
-date3
-Just {jour = 11, mois = Septembre, annee = 2018}
+Ou bien, on peut on peut en construire deux et deduire les autres.
+Par exemple avec < et > on obtient logiquement : 
+== , c est ce qui n est ni strictement inferieur ni strictement supérieur.
+Donc on obtient facilement >= , qui est soit > soit ==
+De même on obtient facilement <= , qui est soit < soit ==
 
-date4
-Nothing
+
+
+**Opérations arithmétiques**   
+
+Ajouter ou enlever plusieurs jours, mois ou années.
+   
+   
+   
+   
+Toutes les fonctions sont disponibles <a href= https://github.com/ljuglaret/Date/blob/v19/DateElm19/BibliDate2.elm> ici</a>
+Pour un aperçu de l utilisation des fonctions définies précédemment : <a href = https://ljuglaret.github.io/Date/DateDemo3.html >Lien </a> 
